@@ -1,49 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+/* ── Design Tokens ── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --sf:      #E05A14;
+  --sf-lt:   #F07040;
+  --sf-dk:   #B84510;
+  --sf-pale: rgba(224,90,20,.08);
+
+  --gr:      #16803D;
+  --gr-dk:   #0F5E2C;
+  --gr-pale: rgba(22,128,61,.08);
+
+  --bl:      #1D4ED8;
+  --bl-dk:   #1E40AF;
+  --bl-pale: rgba(29,78,216,.08);
+
+  --gold:    #D97706;
+
+  --bg:      #FFFFFF;
+  --bg2:     #F8F9FE;
+  --bg3:     #F1F5F9;
+  --bg-warm: #FFF7F2;
+  --bg-cool: #EEF4FF;
+
+  --txt:     #0A1628;
+  --txt2:    #1E293B;
+  --soft:    #475569;
+  --muted:   #94A3B8;
+
+  --bd:      rgba(0,0,0,.08);
+  --bd-md:   rgba(0,0,0,.13);
+  --bd-sf:   rgba(224,90,20,.22);
+  --bd-gr:   rgba(22,128,61,.2);
+  --bd-bl:   rgba(29,78,216,.2);
+
+  --sh-xs:   0 1px 4px rgba(0,0,0,.05);
+  --sh-sm:   0 2px 14px rgba(0,0,0,.07);
+  --sh-md:   0 8px 36px rgba(0,0,0,.10);
+  --sh-lg:   0 24px 64px rgba(0,0,0,.13);
+  --sh-sf:   0 8px 32px rgba(224,90,20,.22);
+  --sh-bl:   0 8px 32px rgba(29,78,216,.18);
+  --sh-gr:   0 8px 32px rgba(22,128,61,.18);
+
+  --fh: 'Outfit', sans-serif;
+  --fb: 'Plus Jakarta Sans', sans-serif;
+
+  --r1: 8px;  --r2: 14px; --r3: 22px;
+  --r4: 32px; --pill: 999px;
+
+  --t:  .32s cubic-bezier(.4,0,.2,1);
+  --tf: .18s ease;
+
+  --py: clamp(72px,10vw,120px);
+  --cw: 1200px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html {
-  height: 100%;
-}
-
-html,
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; font-size: 16px; }
 body {
-  max-width: 100vw;
+  font-family: var(--fb);
+  background: var(--bg);
+  color: var(--soft);
   overflow-x: hidden;
+  line-height: 1.72;
+}
+img { max-width: 100%; display: block; }
+a   { text-decoration: none; color: inherit; }
+ul  { list-style: none; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+/* ── Utilities ── */
+.wrap { width: min(100% - 2.5rem, var(--cw)); margin-inline: auto; }
+.sec  { padding: var(--py) 0; }
+
+/* ── Chip labels ── */
+.chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--fh); font-size: .7rem; font-weight: 700;
+  letter-spacing: .13em; text-transform: uppercase;
+  color: var(--sf); background: var(--sf-pale);
+  border: 1px solid var(--bd-sf);
+  padding: 5px 16px; border-radius: var(--pill); margin-bottom: 14px;
+}
+.chip i { width: 6px; height: 6px; border-radius: 50%; background: var(--sf); flex-shrink: 0; }
+.chip.gr { color: var(--gr); background: var(--gr-pale); border-color: var(--bd-gr); }
+.chip.gr i { background: var(--gr); }
+.chip.bl { color: var(--bl); background: var(--bl-pale); border-color: var(--bd-bl); }
+.chip.bl i { background: var(--bl); }
+
+/* ── Section headings ── */
+.sec-title {
+  font-family: var(--fh);
+  font-size: clamp(2rem, 4.5vw, 3.1rem);
+  font-weight: 900; line-height: 1.1;
+  letter-spacing: -.02em; color: var(--txt);
+}
+.sec-title em { font-style: normal; color: var(--sf); }
+.sec-sub {
+  font-size: clamp(.95rem,1.5vw,1.08rem);
+  color: var(--soft); max-width: 580px;
+  margin-top: 14px; line-height: 1.8;
 }
 
-body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* ── Buttons ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--fh); font-weight: 700; font-size: .9rem;
+  padding: 13px 30px; border-radius: var(--pill);
+  transition: var(--t); white-space: nowrap; cursor: pointer;
+}
+.btn svg { width: 17px; height: 17px; flex-shrink: 0; transition: transform .2s; }
+.btn:hover svg { transform: translateX(4px); }
+
+.btn-sf {
+  background: linear-gradient(135deg,var(--sf),var(--sf-dk));
+  color: #fff; box-shadow: var(--sh-sf); border: none;
+}
+.btn-sf:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(224,90,20,.38); }
+
+.btn-outline {
+  background: #fff; color: var(--txt);
+  border: 1.5px solid var(--bd-md); box-shadow: var(--sh-sm);
+}
+.btn-outline:hover { border-color: var(--sf); color: var(--sf); transform: translateY(-3px); box-shadow: var(--sh-md); }
+
+.btn-white {
+  background: #fff; color: var(--sf-dk);
+  font-weight: 700; border: none; box-shadow: 0 6px 28px rgba(0,0,0,.18);
+}
+.btn-white:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(0,0,0,.26); }
+
+.btn-bl {
+  background: linear-gradient(135deg,var(--bl),var(--bl-dk));
+  color: #fff; box-shadow: var(--sh-bl); border: none;
+}
+.btn-bl:hover { transform: translateY(-3px); }
+
+.btn-gr {
+  background: linear-gradient(135deg,var(--gr),var(--gr-dk));
+  color: #fff; box-shadow: var(--sh-gr); border: none;
+}
+.btn-gr:hover { transform: translateY(-3px); }
+
+/* ── Scroll reveal ── */
+.sr   { opacity: 0; transform: translateY(36px); transition: opacity .7s ease, transform .7s ease; }
+.sr-l { opacity: 0; transform: translateX(-44px); transition: opacity .7s ease, transform .7s ease; }
+.sr-r { opacity: 0; transform: translateX(44px);  transition: opacity .7s ease, transform .7s ease; }
+.sr.on, .sr-l.on, .sr-r.on { opacity: 1; transform: none; }
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+.d4{transition-delay:.4s}.d5{transition-delay:.5s}.d6{transition-delay:.6s}
+
+/* ── Tricolor bar ── */
+.tribar { display: flex; height: 4px; position: fixed; top: 0; left: 0; right: 0; z-index: 1001; }
+.tribar span:nth-child(1) { flex:1; background:#FF9933; }
+.tribar span:nth-child(2) { flex:1; background:#E5E7EB; }
+.tribar span:nth-child(3) { flex:1; background:#138808; }
+
+/* ── Keyframe animations ── */
+@keyframes spin     { to { transform: rotate(360deg); } }
+@keyframes float    { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+@keyframes bfloat1  { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
+@keyframes bfloat2  { 0%,100%{transform:translateY(0)} 50%{transform:translateY(9px)} }
+@keyframes fadeUp   { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:none} }
+@keyframes ticker   { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+@keyframes blobPulse{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+@keyframes scrollLine{
+  0%  {transform:scaleY(0);transform-origin:top;opacity:0}
+  50% {transform:scaleY(1);transform-origin:top;opacity:1}
+  100%{transform:scaleY(1);transform-origin:bottom;opacity:0}
+}
+@keyframes pulseDot{
+  0%,100%{box-shadow:0 0 0 0 rgba(224,90,20,.4)}
+  50%{box-shadow:0 0 0 7px rgba(224,90,20,0)}
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+/* ── Back to top ── */
+.back-top {
+  position: fixed; bottom: 32px; right: 32px;
+  width: 50px; height: 50px; border-radius: 50%;
+  background: linear-gradient(135deg,var(--sf),var(--sf-dk));
+  color: #fff; display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--sh-sf); z-index: 900; cursor: pointer; border: none;
+  opacity: 0; transform: translateY(20px) scale(.8); transition: var(--t);
+  font-size: 1.1rem;
+}
+.back-top.show { opacity: 1; transform: none; }
+.back-top:hover { transform: translateY(-4px) scale(1.1); }
+
+@media(prefers-reduced-motion:reduce) {
+  *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+/* Paste this at the END of your global stylesheet (e.g. src/app/globals.css).
+   It hides Google Translate's own banner, tooltip and the page shift it adds,
+   so only your header's language menu is visible. */
+iframe.skiptranslate,
+.goog-te-banner-frame,
+.VIpgJd-ZVi9od-ORHb-OEVmcd,
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf,
+#goog-gt-tt,
+.goog-te-balloon-frame { display: none !important; visibility: hidden !important; }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-}
+body { top: 0 !important; }
+
+.goog-text-highlight { background: none !important; box-shadow: none !important; }

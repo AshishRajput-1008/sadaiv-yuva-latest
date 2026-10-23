@@ -1,0 +1,225 @@
+.nav {
+  --ink: #0B1B3F; --body: #3B4A5E; --line: #E6EAF0; --saffron: #E8650F; --saffron-d: #CC5309;
+  --logo: 86px;                 /* logo size */
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding-top: 4px;
+  background: rgba(255,255,255,0);
+  border-bottom: 1px solid transparent;
+  transition: background .3s ease, border-color .3s ease, box-shadow .3s ease;
+}
+.scrolled {
+  --logo: 76px;
+  background: rgba(255,255,255,.9);
+  backdrop-filter: blur(16px) saturate(170%);
+  -webkit-backdrop-filter: blur(16px) saturate(170%);
+  border-bottom-color: var(--line);
+  box-shadow: 0 8px 28px rgba(11,27,63,.05);
+}
+
+.skip {
+  position: fixed; top: 8px; left: 8px; z-index: 1100; padding: 10px 16px; border-radius: 8px;
+  background: var(--ink, #0B1B3F); color: #fff; font: 600 .85rem 'Outfit', system-ui, sans-serif;
+  transform: translateY(-160%);
+}
+.skip:focus { transform: none; }
+
+.bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 104px; transition: height .3s ease; }
+.scrolled .bar { height: 88px; }
+
+/* Brand: logo and two-line text are centred together */
+.brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; text-decoration: none; }
+.logo { width: var(--logo); height: var(--logo); object-fit: contain; flex-shrink: 0; transition: width .3s ease, height .3s ease; }
+.brandText { display: flex; flex-direction: column; justify-content: center; gap: 4px; height: var(--logo); line-height: 1; }
+.brandMain {
+  font-family: var(--f-display, Georgia, serif); font-weight: 600;
+  font-size: 27px; line-height: 1; letter-spacing: -.01em; color: var(--ink);
+  white-space: nowrap; transition: font-size .3s ease;
+}
+.brandSub {
+  font: 600 12px / 1.2 'Outfit', system-ui, sans-serif;
+  text-transform: uppercase; letter-spacing: .09em; color: #475569;
+  white-space: nowrap;
+}
+
+/* Links */
+.links { display: flex; align-items: center; gap: 2px; list-style: none; margin: 0; padding: 0; }
+.link {
+  position: relative; display: block; padding: 10px 11px;
+  font: 500 .95rem 'Outfit', system-ui, sans-serif; color: var(--body); text-decoration: none;
+  transition: color .2s ease;
+}
+.link::after {
+  content: ''; position: absolute; left: 11px; right: 11px; bottom: 4px; height: 2px; border-radius: 2px;
+  background: var(--saffron); transform: scaleX(0); transform-origin: left; transition: transform .3s ease;
+}
+.link:hover { color: var(--ink); }
+.link:hover::after, .linkActive::after { transform: scaleX(1); }
+.linkActive { color: var(--ink); font-weight: 600; }
+
+/* Actions */
+.actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+
+/* Actions */
+.actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+
+/* Desktop only (901px and up): language switcher goes last */
+@media (min-width: 901px) {
+  .langHeader { order: 99; margin-left: 6px; }
+}
+
+/* Shared premium button shape */
+.memberBtn, .donateBtn {
+  position: relative; display: inline-flex; align-items: center; justify-content: center;
+  padding: 10px 18px; border-radius: 12px; text-decoration: none; white-space: nowrap;
+  font: 800 .78rem 'Outfit', system-ui, sans-serif; letter-spacing: .05em; text-transform: uppercase;
+  transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+}
+
+/* Donate: glossy orange gradient with glow */
+.donateBtn {
+  color: #fff;
+  background: linear-gradient(180deg, #FF8A2B 0%, #F9690E 55%, #E85A04 100%);
+  border: 1px solid rgba(255,255,255,.28);
+  box-shadow: 0 10px 26px rgba(242,92,5,.40), inset 0 1px 0 rgba(255,255,255,.45), inset 0 -2px 0 rgba(0,0,0,.10);
+  text-shadow: 0 1px 2px rgba(120,40,0,.35);
+}
+.donateBtn:hover { transform: translateY(-2px); filter: brightness(1.06); box-shadow: 0 16px 34px rgba(242,92,5,.50), inset 0 1px 0 rgba(255,255,255,.5), inset 0 -2px 0 rgba(0,0,0,.10); }
+
+/* Membership: dark navy with a gold-copper gradient border and gradient text */
+.memberBtn {
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(180deg, #0F1D3F 0%, #09132B 100%) padding-box,
+    linear-gradient(135deg, #F7C27F 0%, #B8651F 48%, #F2A858 100%) border-box;
+  box-shadow: 0 10px 26px rgba(9,19,43,.34), inset 0 1px 0 rgba(255,255,255,.10);
+}
+.memberLead { color: #fff; margin-right: .4em; }
+.memberAccent {
+  background: linear-gradient(90deg, #FFE0BC 0%, #FFB066 55%, #FF9A45 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+.memberBtn:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(9,19,43,.46), 0 0 0 3px rgba(247,194,127,.18), inset 0 1px 0 rgba(255,255,255,.14); }
+
+/* Hamburger */
+.ham {
+  display: none; flex-direction: column; justify-content: center; gap: 5px;
+  width: 46px; height: 46px; padding: 0 11px; cursor: pointer;
+  background: #fff; border: 1px solid var(--line); border-radius: 12px;
+}
+.ham span { display: block; height: 2px; width: 100%; background: var(--ink); border-radius: 2px; transition: transform .3s ease, opacity .2s ease; }
+.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.open span:nth-child(2) { opacity: 0; }
+.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile drawer */
+.drawer {
+  display: none; position: absolute; top: 100%; left: 0; right: 0;
+  background: #fff; border-bottom: 1px solid var(--line); box-shadow: 0 24px 40px rgba(11,27,63,.1);
+  visibility: hidden; opacity: 0; transform: translateY(-8px);
+  transition: opacity .25s ease, transform .25s ease, visibility 0s linear .25s;
+}
+.drawerOpen { visibility: visible; opacity: 1; transform: none; transition-delay: 0s; }
+.drawerInner { display: flex; flex-direction: column; padding-top: 6px; padding-bottom: 22px; }
+.drawerLink { padding: 16px 2px; border-bottom: 1px solid #EEF1F6; font: 500 1.02rem 'Outfit', system-ui, sans-serif; color: var(--ink); text-decoration: none; }
+.drawerLink:hover { color: var(--saffron-d); }
+.drawerMember, .drawerCta {
+  margin-top: 20px; text-align: center; padding: 15px; border-radius: 14px; text-decoration: none;
+  font: 800 .94rem 'Outfit', system-ui, sans-serif; letter-spacing: .06em; text-transform: uppercase; color: #fff;
+}
+.drawerMember {
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(180deg, #0F1D3F, #09132B) padding-box,
+    linear-gradient(135deg, #F7C27F, #B8651F 48%, #F2A858) border-box;
+}
+.drawerCta {
+  background: linear-gradient(180deg, #FF8A2B, #F9690E 55%, #E85A04);
+  box-shadow: 0 10px 24px rgba(242,92,5,.35), inset 0 1px 0 rgba(255,255,255,.4);
+}
+.drawerMember + .drawerCta { margin-top: 12px; }
+.scrim { position: fixed; inset: 0; z-index: 999; border: 0; padding: 0; background: rgba(11,27,63,.3); cursor: default; }
+
+.link:focus-visible, .donateBtn:focus-visible, .memberBtn:focus-visible, .ham:focus-visible, .brand:focus-visible,
+.drawerLink:focus-visible, .drawerCta:focus-visible, .drawerMember:focus-visible { outline: 2px solid #4F46E5; outline-offset: 3px; }
+
+@media (max-width: 1000px) { .links { gap: 0; } .link { padding: 10px 10px; } }
+
+/* 901–1200px: tagline hidden, tighter spacing so everything fits next to the bigger brand text */
+@media (min-width: 901px) and (max-width: 1200px) {
+  .brandSub { display: none; }
+  .brandText { height: auto; }
+  .memberBtn, .donateBtn { padding: 9px 13px; font-size: .72rem; letter-spacing: .03em; }
+  .link { padding: 10px 7px; font-size: .9rem; }
+  .brandMain { font-size: 24px; }
+}
+/* 1201–1450px: keep tagline but compact the buttons so nothing runs past the viewport */
+@media (min-width: 1201px) and (max-width: 1450px) {
+  .brandSub { font-size: 11px; letter-spacing: .06em; }
+  .memberBtn, .donateBtn { padding: 9px 15px; font-size: .74rem; }
+}
+
+/* Tablet / mobile: 27px and 12px apply on desktop only, so sizes scale from the logo again */
+@media (max-width: 900px) {
+  .nav, .scrolled { --logo: 60px; }
+  .brandMain { font-size: calc(var(--logo) * .31); }
+  .brandSub  { font-size: calc(var(--logo) * .13); }
+  .memberBtn { display: none; }
+  .links { display: none; }
+  .ham { display: flex; }
+  .drawer { display: block; max-height: calc(100vh - 90px); overflow-y: auto; }
+  .bar, .scrolled .bar { height: 76px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav, .bar, .logo, .brandMain, .drawer, .donateBtn, .memberBtn, .ham span, .link::after { transition: none; }
+}
+
+
+/* ---------- Tablet (641-900px): single row with a readable brand ---------- */
+@media (min-width: 641px) and (max-width: 900px) {
+  .brandText { height: auto; }
+  .brandMain { font-size: 20px; }
+  .brandSub { font-size: 8.5px; letter-spacing: .07em; line-height: 1.3; white-space: normal; max-width: 230px; }
+}
+
+/* ---------- Phone (up to 640px): two-row header ----------
+   Row 1: BIG logo + brand name + tagline (full width)
+   Row 2: language button | Donate (stretches) | hamburger            */
+@media (max-width: 640px) {
+  .nav, .scrolled { --logo: clamp(66px, 22vw, 76px); }
+  .scrolled { --logo: clamp(52px, 15vw, 60px); }
+
+  .bar, .scrolled .bar {
+    display: grid; height: auto; align-items: center; gap: 10px 10px; padding: 8px 0 12px;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      "brand brand brand"
+      "lang  donate ham";
+  }
+  .actions { display: contents; }          /* lets language / donate / hamburger sit directly in the grid */
+
+  .brand { grid-area: brand; min-width: 0; gap: 12px; align-items: center; }
+  .logo { flex-shrink: 0; }
+  .brandText { height: auto; gap: 5px; min-width: 0; justify-content: center; }
+  .brandMain {
+    font-size: clamp(18px, 5.8vw, 23px); line-height: 1.08; letter-spacing: -.01em;
+    white-space: nowrap;
+  }
+  .brandSub {
+    display: block; font-size: clamp(9px, 2.8vw, 11px); letter-spacing: .05em; line-height: 1.3;
+    white-space: normal;
+  }
+
+  .ham { grid-area: ham; justify-self: end; width: 46px; height: 46px; }
+  .langHeader { grid-area: lang; }
+  .donateBtn {
+    grid-area: donate; width: 100%; height: 46px; padding: 0 16px; font-size: .84rem; letter-spacing: .06em;
+  }
+
+  .drawer { max-height: calc(100vh - 170px); max-height: calc(100dvh - 170px); }
+}
+/* Very small phones: smaller type, let the name wrap instead of overflowing */
+@media (max-width: 340px) {
+  .brandMain { white-space: normal; font-size: 17px; }
+  .brandSub { font-size: 8.5px; }
+}
